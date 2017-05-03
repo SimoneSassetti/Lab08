@@ -33,8 +33,23 @@ public class BordersController {
 
 	@FXML
 	void doCalcolaConfini(ActionEvent event) {
-
-		txtResult.setText("Todo!");
+		try {
+			int anno;
+			String s=txtAnno.getText();
+			if(!s.matches("[0-9]*")){
+				txtResult.appendText("Valore non valido.\n");
+				return;
+			}
+			anno=Integer.parseInt(s);
+			if(anno<1816 || anno>2016){
+				txtResult.appendText("Valore fuori range.\n");
+				return;
+			}
+			txtResult.appendText("Elenco stati:\n"+model.creaGrafo(anno));
+			
+		} catch (RuntimeException re) {
+			txtResult.setText(re.getMessage());
+		}	
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
